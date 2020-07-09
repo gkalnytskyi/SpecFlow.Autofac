@@ -41,8 +41,10 @@ A typical dependency builder method probably looks like this:
       var builder = Dependencies.CreateContainerBuilder();
 
       //TODO: add customizations, stubs required for testing
-
-      builder.RegisterTypes(typeof(TestDependencies).Assembly.GetTypes().Where(t => Attribute.IsDefined(t, typeof(BindingAttribute))).ToArray()).SingleInstance();
+      builder.
+        RegisterAssemblyTypes(Assembly.GetAssembly(typeof(TestDependencies))).
+        Where(t => Attribute.IsDefined(t, typeof(BindingAttribute))).
+        SingleInstance();
       
       return builder;
     }
